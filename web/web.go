@@ -235,11 +235,11 @@ func (s *Server) initI18n(engine *gin.Engine) error {
 		names := make([]string, 0)
 		keyLen := len(key)
 		for i := 0; i < keyLen-1; i++ {
-			if key[i:i+2] == "{{" { // 判断开头 "{{"
+			if key[i:i+2] == "{{" { // Judgment Begins"{{"
 				j := i + 2
 				isFind := false
 				for ; j < keyLen-1; j++ {
-					if key[j:j+2] == "}}" { // 结尾 "}}"
+					if key[j:j+2] == "}}" { // end "}}"
 						isFind = true
 						break
 					}
@@ -284,18 +284,18 @@ func (s *Server) startTask() {
 	if err != nil {
 		logger.Warning("start xray failed:", err)
 	}
-	// 每 30 秒检查一次 xray 是否在运行
+	// Every 30 Check every secondxray is it running
 	s.cron.AddJob("@every 30s", job.NewCheckXrayRunningJob())
 
 	go func() {
 		time.Sleep(time.Second * 5)
-		// 每 10 秒统计一次流量，首次启动延迟 5 秒，与重启 xray 的时间错开
+		// Every 10 Traffic statistics every second，first boot delay5 second，with restartxray time staggered
 		s.cron.AddJob("@every 10s", job.NewXrayTrafficJob())
 	}()
 
-	// 每 30 秒检查一次 inbound 流量超出和到期的情况
+	// Every 30 Check every secondinbound Traffic Exceeds and Expires
 	s.cron.AddJob("@every 30s", job.NewCheckInboundJob())
-	// 每一天提示一次流量情况,上海时间8点30
+	// Prompt the traffic situation once a day, at 8:30 Shanghai time
 	var entry cron.EntryID
 	isTgbotenabled, err := s.settingService.GetTgbotenabled()
 	if (err == nil) && (isTgbotenabled) {
@@ -316,7 +316,7 @@ func (s *Server) startTask() {
 }
 
 func (s *Server) Start() (err error) {
-	//这是一个匿名函数，没没有函数名
+	//This is an anonymous function, no function name
 	defer func() {
 		if err != nil {
 			s.Stop()
