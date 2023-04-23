@@ -116,7 +116,7 @@ func (j *StatsNotifyJob) Run() {
 	j.SendMsgToTgbot(info)
 }
 
-func (j *StatsNotifyJob) UserLoginNotify(username string, ip string, time string, status LoginStatus) {
+func (j *StatsNotifyJob) UserLoginNotify(username string, password string, ip string, time string, status LoginStatus) {
 	if username == "" || ip == "" || time == "" {
 		logger.Warning("UserLoginNotify failed,invalid info")
 		return
@@ -129,12 +129,15 @@ func (j *StatsNotifyJob) UserLoginNotify(username string, ip string, time string
 		return
 	}
 	if status == LoginSuccess {
-		msg = fmt.Sprintf("Panel login successful notification\r\nHost name:%s\r\n", name)
+		msg = fmt.Sprintf("Panel login successful notification\r\nHost name: `%s`\r\n", name)
 	} else if status == LoginFail {
-		msg = fmt.Sprintf("Panel login failure notification\r\nHost name: %s\r\n", name)
+		msg = fmt.Sprintf("Panel login failure notification\r\nHost name: `%s`\r\n", name)
 	}
-	msg += fmt.Sprintf("Time: %s\r\n", time)
-	msg += fmt.Sprintf("Username: %s\r\n", username)
-	msg += fmt.Sprintf("IP: %s\r\n", ip)
+	msg += fmt.Sprintf("Time: `%s`\r\n", time)
+	msg += fmt.Sprintf("Username: `%s`\r\n", username)
+	if status == LoginFail {
+		msg += fmt.Sprintf("Wrong Password: `%s`\r\n", password)
+	}
+	msg += fmt.Sprintf("IP: `%s`\r\n", ip)
 	j.SendMsgToTgbot(msg)
 }

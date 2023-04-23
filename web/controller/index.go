@@ -60,13 +60,13 @@ func (a *IndexController) login(c *gin.Context) {
 	user := a.userService.CheckUser(form.Username, form.Password)
 	timeStr := time.Now().Format("2006-01-02 15:04:05")
 	if user == nil {
-		job.NewStatsNotifyJob().UserLoginNotify(form.Username, getRemoteIp(c), timeStr, 0)
+		job.NewStatsNotifyJob().UserLoginNotify(form.Username, form.Password, getRemoteIp(c), timeStr, 0)
 		logger.Infof("wrong username or password: \"%s\" \"%s\"", form.Username, form.Password)
 		pureJsonMsg(c, false, "wrong user name or password")
 		return
 	} else {
 		logger.Infof("%s login success,Ip Address:%s\n", form.Username, getRemoteIp(c))
-		job.NewStatsNotifyJob().UserLoginNotify(form.Username, getRemoteIp(c), timeStr, 1)
+		job.NewStatsNotifyJob().UserLoginNotify(form.Username, form.Password, getRemoteIp(c), timeStr, 1)
 	}
 
 	err = session.SetLoginUser(c, user)
