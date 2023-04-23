@@ -1,31 +1,31 @@
 # x-ui
 
-支持多协议多用户的 xray 面板
+xray panel supporting multi-protocol multi-user
 
-# 功能介绍
+# Features
 
-- 系统状态监控
-- 支持多用户多协议，网页可视化操作
-- 支持的协议：vmess、vless、trojan、shadowsocks、dokodemo-door、socks、http
-- 支持配置更多传输配置
-- 流量统计，限制流量，限制到期时间
-- 可自定义 xray 配置模板
-- 支持 https 访问面板（自备域名 + ssl 证书）
-- 支持一键SSL证书申请且自动续签
-- 更多高级配置项，详见面板
+- System Status Monitoring
+- Support multi-user multi-protocol, web page visualization operation
+- Supported protocols: vmess, vless, trojan, shadowsocks, dokodemo-door, socks, http
+- Support for configuring more transport configurations
+- Traffic statistics, limit traffic, limit expiration time
+- Customizable xray configuration templates
+- Support https access panel (self-provided domain name + ssl certificate)
+- Support one-click SSL certificate application and automatic renewal
+- For more advanced configuration items, please refer to the panel
 
-# 安装&升级
+# Install & Upgrade
 
 ```
 bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 ```
 
-## 手动安装&升级
+## Manual install & upgrade
 
-1. 首先从 https://github.com/vaxilu/x-ui/releases 下载最新的压缩包，一般选择 `amd64`架构
-2. 然后将这个压缩包上传到服务器的 `/root/`目录下，并使用 `root`用户登录服务器
+1. First download the latest compressed package from https://github.com/vaxilu/x-ui/releases , generally choose Architecture `amd64`
+2. Then upload the compressed package to the server's `/root/` directory and，log in to the server with `root` user.
 
-> 如果你的服务器 cpu 架构不是 `amd64`，自行将命令中的 `amd64`替换为其他架构
+> If your server cpu architecture is not `amd64`, replace `amd64` with your cpu architecture.
 
 ```
 cd /root/
@@ -40,17 +40,17 @@ systemctl enable x-ui
 systemctl restart x-ui
 ```
 
-## 使用docker安装
+## Install using docker
 
-> 此 docker 教程与 docker 镜像由[Chasing66](https://github.com/Chasing66)提供
+> This docker tutorial and docker image are provided by [Chasing66](https://github.com/Chasing66)
 
-1. 安装docker
+1. install docker
 
 ```shell
 curl -fsSL https://get.docker.com | sh
 ```
 
-2. 安装x-ui
+2. install x-ui
 
 ```shell
 mkdir x-ui && cd x-ui
@@ -61,21 +61,21 @@ docker run -itd --network=host \
     enwaiax/x-ui:latest
 ```
 
-> Build 自己的镜像
+> Build your own image
 
 ```shell
 docker build -t x-ui .
 ```
 
-## SSL证书申请
+## SSL certificate application
 
-> 此功能与教程由[FranzKafkaYu](https://github.com/FranzKafkaYu)提供
+> This feature and tutorial are provided by [FranzKafkaYu](https://github.com/FranzKafkaYu)
 
-脚本内置SSL证书申请功能，使用该脚本申请证书，需满足以下条件:
+The script has a built-in SSL certificate application function. To use this script to apply for a certificate, the following conditions must be met:
 
-- 知晓Cloudflare 注册邮箱
-- 知晓Cloudflare Global API Key
-- 域名已通过cloudflare进行解析到当前服务器
+- Know the Cloudflare registered email
+- Know the Cloudflare Global API Key
+- The domain name has been resolved to the current server through cloudflare
 
 获取Cloudflare Global API Key的方法:
     ![](media/bda84fbc2ede834deaba1c173a932223.png)
